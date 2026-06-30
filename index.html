@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hera — Full Stack / Video Engineer</title>
+<meta name="description" content="Hera's personal site. Full Stack / Video Engineer focused on low-latency streaming, player systems, and observability.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- 固定左側時間碼軌:整站的簽名元素,呼應低延遲影音與 frame-accurate playback -->
+<aside class="timecode-rail" aria-hidden="true">
+  <span class="tc-label">REC</span>
+  <span class="tc-dot"></span>
+  <span id="tc-clock" class="tc-clock">00:00:00:00</span>
+</aside>
+
+<header class="topbar">
+  <a class="brand" href="#top">
+    <svg class="brand-mark" viewBox="0 0 32 32" width="18" height="18" aria-hidden="true">
+      <path d="M16 3 L16 29 M16 3 L24 9 M16 29 L8 23" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>HERA</span>
+  </a>
+  <nav class="topbar-actions">
+    <button id="lang-toggle" class="switch-btn" type="button" aria-label="Switch language">
+      <span data-i18n="nav.lang">EN</span>
+    </button>
+    <button id="theme-toggle" class="switch-btn" type="button" aria-label="Toggle dark / light theme">
+      <span data-i18n="nav.theme">LIGHT</span>
+    </button>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-ruler" aria-hidden="true"></div>
+    <p class="eyebrow" data-i18n="hero.eyebrow">SEI · 00:00:00:00 — FULL STACK / VIDEO ENGINEER</p>
+    <h1 class="hero-title">
+      <span data-i18n="hero.title1">Hello</span>
+    </h1>
+    <p class="hero-sub" data-i18n="hero.sub">
+      Full-stack engineer working on streaming players, real-time protocols, and observability. Currently building CrystalPlayer at IKG Studio, a web live player based on libmedia.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-line btn-fill" href="#work" data-i18n="hero.cta1">View work</a>
+      <a class="btn-line" href="#contact" data-i18n="hero.cta2">Contact</a>
+    </div>
+  </section>
+
+  <!-- ===== Focus areas — 真正的管線順序,不是裝飾用編號 ===== -->
+  <section class="section" id="focus">
+    <h2 class="section-label" data-i18n="focus.label">PIPELINE — three practical layers behind a frame</h2>
+    <ol class="track-list">
+      <li class="track-row">
+        <span class="track-index">01</span>
+        <div class="track-body">
+          <h3 data-i18n="focus.card1.title">Streaming protocols</h3>
+          <p data-i18n="focus.card1.body">RTMP, HTTP-FLV, WHEP / WebRTC, from low-latency playback paths to multi-CDN failover.</p>
+        </div>
+        <span class="track-tag" data-i18n="focus.card1.tag">INGEST</span>
+      </li>
+      <li class="track-row">
+        <span class="track-index">02</span>
+        <div class="track-body">
+          <h3 data-i18n="focus.card2.title">Decode pipelines</h3>
+          <p data-i18n="focus.card2.body">WebCodecs hardware decode and WASM software decode paths, with SEI timecode parsing and adaptive bitrate switching.</p>
+        </div>
+        <span class="track-tag" data-i18n="focus.card2.tag">DECODE</span>
+      </li>
+      <li class="track-row">
+        <span class="track-index">03</span>
+        <div class="track-body">
+          <h3 data-i18n="focus.card3.title">Observability</h3>
+          <p data-i18n="focus.card3.body">Prometheus / Grafana monitoring, plus an EventBus boundary between player behavior and metrics reporting.</p>
+        </div>
+        <span class="track-tag" data-i18n="focus.card3.tag">OBSERVE</span>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===== Work / Projects — frame index 風格 ===== -->
+  <section class="section" id="work">
+    <h2 class="section-label" data-i18n="work.label">REEL — work & projects</h2>
+
+    <article class="project-row">
+      <div class="project-meta">
+        <span class="project-year">2024 – 2026</span>
+        <span class="tag" data-i18n="work.p1.tag">IKG STUDIO</span>
+      </div>
+      <h3 data-i18n="work.p1.title">CrystalPlayer</h3>
+      <p data-i18n="work.p1.body">A web-based live streaming player built on the open-source libmedia project. I work on protocol support, WebCodecs / WASM decode paths, SEI timecode parsing, adaptive bitrate switching, and observability.</p>
+    </article>
+
+    <article class="project-row">
+      <div class="project-meta">
+        <span class="project-year">2025 –</span>
+        <span class="tag" data-i18n="work.p2.tag">SIDE PROJECT</span>
+      </div>
+      <h3 data-i18n="work.p2.title">Limit Order Book Visualizer</h3>
+      <p data-i18n="work.p2.body">A market-structure side project that visualizes limit order book dynamics in real time, with a longer-term path toward a C++ matching engine compiled to WASM.</p>
+    </article>
+
+    <article class="project-row">
+      <div class="project-meta">
+        <span class="project-year">2022 – 2024</span>
+        <span class="tag" data-i18n="work.p3.tag">INTEL</span>
+      </div>
+      <h3 data-i18n="work.p3.title">AIMT — internal validation tool</h3>
+      <p data-i18n="work.p3.body">As a Network Validation Engineer, I built an internal React, Express.js, and PostgreSQL tool to make validation work easier to trace and repeat.</p>
+    </article>
+  </section>
+
+  <!-- ===== About / Contact ===== -->
+  <section class="section about" id="about">
+    <div class="about-grid">
+      <div>
+        <h2 class="section-label" data-i18n="about.label">ABOUT</h2>
+        <p data-i18n="about.body">
+          I am based in Taiwan and work around streaming media, browser video, and systems engineering. I also keep a long-running interest in GPU / ML systems, electronics projects, and small tools that turn fuzzy ideas into working things.
+        </p>
+      </div>
+      <ul class="link-list" id="contact">
+        <li><a href="https://github.com/codeblossom99" target="_blank" rel="noopener"><span class="prompt">&gt;</span> GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/ting-en-chen/" target="_blank" rel="noopener"><span class="prompt">&gt;</span> LinkedIn</a></li>
+        <li class="email-row">
+          <a href="mailto:tina880129@gmail.com"><span class="prompt">&gt;</span> Email</a>
+          <button class="copy-email" type="button" data-copy="tina880129@gmail.com" aria-label="Copy email address">COPY</button>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p data-i18n="footer.text">© 2026 HERA — END OF REEL</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

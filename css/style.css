@@ -1,0 +1,373 @@
+/* ===================================================================
+   Design tokens — written like a small DESIGN.md in CSS form.
+   The site should feel like a precise video tool: calculator typography,
+   timecode details, and the original purple-led visual language.
+   =================================================================== */
+
+:root {
+  --purple-500: #6d4aff;
+  --purple-400: #8a6fff;
+  --purple-300: #b3a1ff;
+  --accent-green: #34c98a;
+  --accent-blue: #4d8dff;
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+
+  --rail-w: 56px;
+  --max-w: 760px;
+  --radius: 6px;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root,
+[data-theme="dark"] {
+  --bg: #0a0a0d;
+  --surface: #131318;
+  --surface-soft: #101016;
+  --border: #232229;
+  --border-strong: #34323d;
+  --text: #ece9f2;
+  --text-muted: #837e94;
+  --accent: var(--purple-400);
+  --accent-2: var(--purple-300);
+  --accent-3: var(--accent-blue);
+}
+
+[data-theme="light"] {
+  --bg: #f7f6f3;
+  --surface: #ffffff;
+  --surface-soft: #f0eef7;
+  --border: #e2dfd8;
+  --border-strong: #cfcabd;
+  --text: #15131a;
+  --text-muted: #6b6678;
+  --accent: var(--purple-500);
+  --accent-2: var(--purple-400);
+  --accent-3: var(--accent-blue);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { overflow-x: hidden; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  padding-left: var(--rail-w);
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--border) 42%, transparent) 1px, transparent 1px),
+    linear-gradient(180deg, color-mix(in srgb, var(--border) 35%, transparent) 1px, transparent 1px);
+  background-size: 44px 44px;
+  background-position: calc(var(--rail-w) - 1px) 0;
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease);
+}
+
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: 0; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* ===================================================================
+   簽名元素:固定在左側的時間碼軌
+   =================================================================== */
+.timecode-rail {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: var(--rail-w);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1.5rem 0;
+  gap: 0.5rem;
+  z-index: 40;
+  background: var(--bg);
+}
+.tc-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  writing-mode: vertical-rl;
+}
+.tc-dot {
+  width: 6px; height: 6px;
+  border-radius: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); }
+  50% { box-shadow: 0 0 0 4px transparent; }
+}
+.tc-clock {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  writing-mode: vertical-rl;
+  letter-spacing: 0.04em;
+}
+
+/* ===================================================================
+   Topbar
+   =================================================================== */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+.brand {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-weight: 600; font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+.brand-mark { color: var(--accent); }
+
+.topbar-actions {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+}
+.switch-btn {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  border-left: 1px solid var(--border-strong);
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+}
+.switch-btn:first-child { border-left: none; }
+.switch-btn:hover { color: var(--accent); background: var(--surface-soft); }
+
+/* ===================================================================
+   Hero
+   =================================================================== */
+main { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--space-3); }
+
+.hero {
+  position: relative;
+  padding: clamp(var(--space-4), 9vw, var(--space-5)) 0 var(--space-4);
+}
+
+/* 標尺紋理:細小刻度線,呼應剪輯軟體的時間軸尺,取代原本的漸層光暈 */
+.hero-ruler {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 22px;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--border-strong) 0, var(--border-strong) 1px,
+    transparent 1px, transparent 20px
+  );
+  opacity: 0.7;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  margin: var(--space-3) 0 var(--space-2);
+}
+
+.hero-title {
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 5vw, 3.35rem);
+  line-height: 1.16;
+  max-width: 12ch;
+}
+.hero-title .accent {
+  color: var(--accent);
+  display: block;
+  text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.hero-sub {
+  margin-top: var(--space-2);
+  max-width: 54ch;
+  color: var(--text);
+  font-size: 1.02rem;
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  border-left: 3px solid var(--accent);
+  padding: 0.9rem 1rem;
+}
+
+.hero-actions { display: flex; gap: 0.75rem; margin-top: var(--space-3); flex-wrap: wrap; }
+
+.btn-line {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7rem 1.3rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.btn-line:hover { border-color: var(--accent); color: var(--accent); }
+.btn-fill {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #07110d;
+}
+.btn-fill:hover { background: transparent; color: var(--accent); }
+
+/* ===================================================================
+   Sections
+   =================================================================== */
+.section {
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  margin: 0 0 var(--space-3);
+  font-weight: 500;
+}
+
+/* Track list — pipeline 排序有真實意義,不是裝飾編號 */
+.track-list { display: flex; flex-direction: column; }
+
+.track-row {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr auto;
+  align-items: start;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--border);
+}
+.track-row:first-child { border-top: none; }
+
+.track-index {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  padding-top: 0.2rem;
+}
+.track-body h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+.track-body p { color: var(--text-muted); font-size: 0.93rem; margin: 0; max-width: 56ch; }
+.track-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  padding-top: 0.25rem;
+  white-space: nowrap;
+}
+
+/* Project rows */
+.project-row { padding: var(--space-3) 0; border-bottom: 1px solid var(--border); }
+.project-row:last-child { border-bottom: none; }
+
+.project-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+.project-year { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); }
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 0.15rem 0.5rem;
+}
+.project-row h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+.project-row p { color: var(--text-muted); max-width: 62ch; margin: 0; }
+
+/* About */
+.about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--space-4); align-items: start; }
+.about p { color: var(--text-muted); max-width: 50ch; }
+
+.link-list { display: flex; flex-direction: column; gap: 0.6rem; font-family: var(--font-mono); font-size: 0.92rem; }
+.link-list .prompt { color: var(--accent); margin-right: 0.4rem; }
+.link-list a { width: fit-content; border-bottom: 1px solid transparent; }
+.link-list a:hover { color: var(--accent); border-color: var(--accent); }
+.email-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.copy-email {
+  min-width: 4.6rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.68rem;
+  line-height: 1;
+  padding: 0.32rem 0.5rem;
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.copy-email:hover,
+.copy-email:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.copy-email.is-copied {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0a0a0d;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: var(--space-4) var(--space-3) var(--space-3);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  border-top: 1px solid var(--border);
+}
+
+/* ===================================================================
+   Responsive
+   =================================================================== */
+@media (max-width: 720px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .track-row { grid-template-columns: 2rem 1fr; }
+  .track-tag { grid-column: 2; }
+}
+
+@media (max-width: 560px) {
+  :root { --rail-w: 0px; }
+  .timecode-rail { display: none; }
+  body { padding-left: 0; }
+}
